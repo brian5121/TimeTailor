@@ -37,7 +37,7 @@ module default {
         }
         required property priority -> int16 {
             default := 5;  # priority from 1 to 10; higher value = more priority
-            constraint range (1, 10);
+            constraint range(min := 1, max := 10);  # Ensure priority is between 1 and 10
         }
     }
 
