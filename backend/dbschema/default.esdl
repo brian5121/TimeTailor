@@ -10,28 +10,34 @@ module default {
 
     # Define the Event type
     type Event {
-        required title: str;
+        required property title -> str;
         property description -> str {
             default := "";
         }
         required property startTime -> datetime;
-        required property endTime -> datetime;
-        required property duration -> int64 {
-            default := 0;  # in minutes
+        required property endTime -> datetime {
+            constraint expression on (SELECT .endTime > .startTime);
+        }
+        # Dynamically calculate duration in minutes
+        property duration -> int64 {
+            # Calculate the duration as the difference between endTime and startTime in minutes
+            expression := <int64>((.endTime - .startTime) / <duration>'1 minute');
         }
         required property deadline -> datetime {
-            default := endTime;
+            # Set the deadline as the endTime by default, ensured to be a valid datetime expression
+            default := .endTime;
         }
         required property location -> str {
             default := "N/A";
         }
         required link owner -> User;  # Establishes ownership of an event by a user
 
-        required fixed -> bool {
+        required property fixed -> bool {
             default := false;
         }
-        required priority -> int16 {
+        required property priority -> int16 {
             default := 5;  # priority from 1 to 10; higher value = more priority
+            constraint range (1, 10);
         }
     }
 
