@@ -46,4 +46,9 @@ body {
   }
   
   /* Additional styles here */
-  
+  #transcription {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    min-height: 50px;
+  }
