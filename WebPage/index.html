@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Calendar</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>After School Schedule</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="navigation">
-        <button id="prevWeek">←</button>
-        <span id="weekLabel"></span>
-        <button id="nextWeek">→</button>
-    </div>
-    <div id="calendar"></div>
-    <div id="notes">
-        <textarea placeholder="Notes..."></textarea>
-    </div>
-    <script src="script.js"></script>
+
+<div id="schedule-container">
+  <div id="navigation">
+    <button id="prev-day">←</button>
+    <span id="date-display">April 27, 2024</span>
+    <button id="next-day">→</button>
+  </div>
+  <div id="schedule-board">
+    <!-- Dynamically loaded schedule will go here -->
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
