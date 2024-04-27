@@ -11,17 +11,27 @@ module default {
     # Define the Event type
     type Event {
         required title: str;
-        property description -> str;
+        property description -> str {
+            default := "";
+        }
         required property startTime -> datetime;
         required property endTime -> datetime;
-        property location -> str;
+        required property duration -> int64 {
+            default := 0;  # in minutes
+        }
+        required property deadline -> datetime {
+            default := endTime;
+        }
+        required property location -> str {
+            default := "N/A";
+        }
         required link owner -> User;  # Establishes ownership of an event by a user
 
         required fixed -> bool {
             default := false;
         }
         required priority -> int16 {
-            default := 10;  # priority from 1 to 10; higher value = more priority
+            default := 5;  # priority from 1 to 10; higher value = more priority
         }
     }
 
