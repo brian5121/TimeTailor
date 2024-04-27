@@ -40,3 +40,5 @@ window.onload = function() {
     updateWeekLabel();
     createCalendar(currentWeekStart); // Start with the current week
 }
+
+// comment
