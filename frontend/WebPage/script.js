@@ -1,42 +1,77 @@
-let currentWeekStart = new Date(new Date().setDate(new Date().getDate() - new Date().getDay()));
-
-function updateWeekLabel() {
-    const weekLabel = document.getElementById('weekLabel');
-    weekLabel.textContent = `Week of ${currentWeekStart.toDateString()}`;
-}
-
-function createCalendar(weekStart) {
-    const calendarElement = document.getElementById('calendar');
-    calendarElement.innerHTML = ''; // Clear previous calendar
-
-    for (let i = 0; i < 6; i++) { // Only 6 days for a 2x3 layout
-        const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
-        const dayElement = document.createElement('div');
-        dayElement.className = 'day';
-        dayElement.innerHTML = `<strong>${day.getDate()}</strong>/${day.getMonth()+1}<div class="task"><input type="text" placeholder="Add task..."></div>`;
-
-        if (day.toDateString() === new Date().toDateString()) {
-            dayElement.classList.add('today');
-        }
-
-        calendarElement.appendChild(dayElement);
+document.addEventListener('DOMContentLoaded', (event) => {
+    let currentDate = new Date();
+  
+    // Load initial schedule
+    loadSchedule(currentDate);
+  
+    document.getElementById('prev-day').addEventListener('click', function() {
+      currentDate.setDate(currentDate.getDate() - 1);
+      loadSchedule(currentDate);
+    });
+  
+    document.getElementById('next-day').addEventListener('click', function() {
+      currentDate.setDate(currentDate.getDate() + 1);
+      loadSchedule(currentDate);
+    });
+  });
+  
+  function loadSchedule(date) {
+    // Placeholder for loading schedule data
+    document.getElementById('date-display').innerText = date.toDateString();
+    document.getElementById('schedule-board').innerHTML = ''; // Clear the board
+  
+    // Here you would actually load schedule data for the given date
+    // For now, let's create some dummy blocks
+    for (let i = 0; i < 5; i++) {
+      let block = document.createElement('div');
+      block.className = 'editable-block';
+      block.contentEditable = true;
+      block.innerText = 'Edit me...';
+      document.getElementById('schedule-board').appendChild(block);
     }
-}
+  }
+  
 
-function adjustWeek(days) {
-    currentWeekStart.setDate(currentWeekStart.getDate() + days);
-    createCalendar(currentWeekStart);
-}
-
-document.getElementById('prevWeek').addEventListener('click', function() {
-    adjustWeek(-7);
-});
-
-document.getElementById('nextWeek').addEventListener('click', function() {
-    adjustWeek(7);
-});
-
-window.onload = function() {
-    updateWeekLabel();
-    createCalendar(currentWeekStart); // Start with the current week
-}
+  document.getElementById('microphone-btn').addEventListener('click', function() {
+    startDictation();
+  });
+  
+  function startDictation() {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert("Sorry, your browser doesn't support speech recognition.");
+      return;
+    }
+  
+    let recognition = new webkitSpeechRecognition();
+    recognition.continuous = true; // Set to false for single-shot recognition
+    recognition.interimResults = true; // We want results even if they are not final
+    recognition.lang = 'en-US'; // Set the language of the recognition
+  
+    recognition.onstart = function() {
+      document.getElementById('transcription').textContent = 'Listening...';
+    };
+  
+    recognition.onresult = function(event) {
+      let final_transcript = '';
+      let interim_transcript = '';
+    
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        // 判断当前识别的文字是否是最终结果
+        if (event.results[i].isFinal) {
+          final_transcript += event.results[i][0].transcript;
+        } else {
+          interim_transcript += event.results[i][0].transcript;
+        }
+      }
+      // 仅当最终结果确定时才更新显示的文字，临时结果会实时更新但不会追加到最终文字中
+      document.getElementById('transcription').innerHTML = final_transcript;
+      document.getElementById('transcription').innerHTML += '<i style="color:#ddd;">' + interim_transcript + '</i>';
+    };
+  
+    recognition.onerror = function(event) {
+      console.error('Speech recognition error', event.error);
+    };
+  
+    recognition.start();
+  }
+  
