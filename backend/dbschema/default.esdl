@@ -15,16 +15,16 @@ module default {
             default := "";
         }
         required property startTime -> datetime;
-        required property endTime -> datetime {
-            constraint expression on (SELECT .endTime > .startTime);
-        }
-        # Dynamically calculate duration in minutes
+        required property endTime -> datetime;
+
+        # Compute duration in minutes correctly
         property duration -> int64 {
-            # Calculate the duration as the difference between endTime and startTime in minutes
-            expression := <int64>((.endTime - .startTime) / <duration>'1 minute');
+            # Convert the duration between endTime and startTime to seconds, then to minutes
+            using ( <int64>(duration_to_seconds(.endTime - .startTime) / 60) );
         }
+
         required property deadline -> datetime {
-            # Set the deadline as the endTime by default, ensured to be a valid datetime expression
+            # Set the deadline as the endTime by default
             default := .endTime;
         }
         required property location -> str {
@@ -37,7 +37,8 @@ module default {
         }
         required property priority -> int16 {
             default := 5;  # priority from 1 to 10; higher value = more priority
-            constraint range(min := 1, max := 10);  # Ensure priority is between 1 and 10
+            constraint min_value(0);
+            constraint max_value(10);
         }
     }
 

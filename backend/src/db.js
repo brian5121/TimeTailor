@@ -1,2 +1,7 @@
-const { createClient } = require('edgedb');
-const db = createClient();
+import {createClient} from 'edgedb';
+
+const client = createClient();
+
+client.querySingle(`select random()`).then((result) => {
+  console.log(result);
+});
