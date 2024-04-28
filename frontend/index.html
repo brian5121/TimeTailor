@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduling and Chat Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="schedule-container">
+            <!-- Date and navigation -->
+            <div class="date-navigation">
+                <button class="nav-button prev">&lt;</button>
+                <span class="date">April 27, 2024</span>
+                <button class="nav-button next">&gt;</button>
+            </div>
+            <div class="time-column">
+                <!-- Repeat for each hour from 7 AM to 9 PM -->
+                <div class="time-slot" data-time="6 AM">6 AM</div>
+                <div class="time-slot" data-time="7 AM">7 AM</div>
+                <div class="time-slot" data-time="8 AM">8 AM</div>
+                <div class="time-slot" data-time="9 AM">9 AM</div>
+                <div class="time-slot" data-time="10 AM">10 AM</div>
+                <div class="time-slot" data-time="11 AM">11 AM</div>
+                <div class="time-slot" data-time="12 PM">12 PM</div>
+                <div class="time-slot" data-time="1 PM">1 PM</div>
+                <div class="time-slot" data-time="2 PM">2 PM</div>
+                <div class="time-slot" data-time="3 PM">3 PM</div>
+                <div class="time-slot" data-time="4 PM">4 PM</div>
+                <!-- Note: You had '4 PM' twice, this second occurrence might be intended to be '5 PM' -->
+                <div class="time-slot" data-time="5 PM">5 PM</div>
+                <div class="time-slot" data-time="6 PM">6 PM</div>
+                <div class="time-slot" data-time="7 PM">7 PM</div>
+                <div class="time-slot" data-time="8 PM">8 PM</div>
+                <div class="time-slot" data-time="9 PM">9 PM</div>
+                <div class="time-slot" data-time="10 PM">10 PM</div>
+                <div class="time-slot" data-time="11 PM">11 PM</div>
+                <!-- For midnight, using '12 AM' next day or '0 AM' is more appropriate than '12 PM' -->
+                <div class="time-slot" data-time="12 AM">12 AM</div>
+                
+            </div>
+        </div>
+        <div class="user-chat">
+            <div class="chat-output" id="chatOutput"><!-- Chat output --></div>
+            <textarea class="chat-input" id="chatInput" placeholder="Type your message..."></textarea>
+            <button class="chat-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  color: #AAD9BB; /* soft green for general text */
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #F9F7C9; /* very light yellow background */
+}
+
+.app-container {
+  display: flex;
+  color: #618264; /* soft teal */
+  height: 100%;
+}
+
+.schedule-container {
+  width: 50%; /* Left half of the screen */
+  color: #618264; /* soft green */
+  overflow-y: auto;
+}
+
+.date-navigation {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #D5F0C1; /* light green */
+}
+
+.chat-container {
+  width: 70%; /* Adjust the width as needed */
+  background: #80BCBD; /* soft teal for chat background */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align chat input to bottom */
+}
+
+.schedule-chat {
+  flex: 1;
+  padding: 20px;
+  color: #F9F7C9; /* very light yellow text */
+  overflow-y: auto;
+  background-color: #AAD9BB; /* soft green background */
+}
+
+.user-chat {
+  width: 50%; /* Right half of the screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-left: 1px solid #D5F0C1; /* light green border */
+}
+
+.message {
+  background-color: #D5F0C1; /* light green for messages */
+  color: #80BCBD; /* soft teal text for messages */
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chat-output {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #80BCBD; /* soft teal border */
+  margin-bottom: 10px;
+  background-color: #D5F0C1; /* light green background */
+  color: #AAD9BB; /* soft green text */
+}
+
+.chat-input {
+  padding: 10px;
+  border: 1px solid #80BCBD; /* soft teal border */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #D5F0C1; /* light green background */
+}
+
+.chat-send {
+  background-color: #AAD9BB; /* soft green for send button */
+  color: #F9F7C9; /* very light yellow text for send button */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-send:hover {
+  background-color: #80BCBD; /* soft teal for send button hover */
+}
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #80BCBD; /* soft teal color */
+  cursor: pointer;
+}
+
+.nav-button:focus {
+  outline: none;
+}
+
+.date {
+  font-size: 2em;
+  margin: 0 15px;
+  font-weight: bold;
+  color: #80BCBD; /* soft teal color */
+}
+
+.time-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-slot {
+  border-bottom: 1px solid #D5F0C1;
+  padding: 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative; /* Adjusted to relative for positioning the time label */
+  padding-left: 30px; /* Provide space for the time label */
+}
+
+.schedule-container {
+  position: relative; /* Essential for absolutely positioned children */
+  width: 50%; /* Left half of the screen */
+  height: calc(18 * 60px); /* Total height based on 18 hours, assuming each hour is 60px */
+  background-color: #D0E7D2; /* Light green background */
+  overflow-y: auto; /* Scroll if content overflows */
+  flex: 1; /* Allow container to fill the height */
+  /* Additional padding, margin, etc. */
+}
+
+.time-block {
+  position: absolute; /* Positioned absolutely within .schedule-container */
+  background-color: #B0D9B1; /* Color for time blocks */
+  color: #618264; /* Text color */
+  left: 40px; /* Adjust left position to not cover the time label */
+  width: calc(100% - 50px); /* Adjust width to account for time label space */
+  box-sizing: border-box; /* Padding and border included in width/height */
+  border-left: 4px solid #79AC78; /* Side border to denote the event block */
+  /* Text alignment, padding, etc. */
+}
+
+/* Adjusted ::before pseudo-element for time label */
+.time-slot::before {
+  content: attr(data-time); /* Use the data-time attribute for content */
+  position: absolute;
+  left: 10px; /* Position the label inside the left padding area */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Higher z-index to ensure label is above the block */
+  background-color: #D0E7D2; /* Match the background */
+  padding: 0 5px; /* Padding for visual comfort */
+}
+
+
